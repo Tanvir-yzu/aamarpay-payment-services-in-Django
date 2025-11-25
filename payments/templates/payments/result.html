@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment {{ status|title }} - aamarPay</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0052CC',
+                        success: '#00C853',
+                        danger: '#E91E63',
+                        warning: '#FF9800',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center px-4 py-12">
+
+    <div class="w-full max-w-md">
+        <div class="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden">
+
+            <!-- Dynamic Status Header -->
+            {% if status == 'success' %}
+                <div class="bg-gradient-to-r from-success to-green-600 text-white px-8 py-12 text-center">
+                    <div class="w-20 h-20 mx-auto mb-4 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+                        </svg>
+                    </div>
+                    <h1 class="text-4xl font-bold">Payment Successful!</h1>
+                </div>
+            {% elif status == 'failed' or status == 'cancelled' %}
+                <div class="bg-gradient-to-r from-danger to-red-700 text-white px-8 py-12 text-center">
+                    <div class="w-20 h-20 mx-auto mb-4 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </div>
+                    <h1 class="text-4xl font-bold">
+                        {% if status == 'failed' %}Payment Failed{% else %}Payment Cancelled{% endif %}
+                    </h1>
+                </div>
+            {% else %}
+                <div class="bg-gradient-to-r from-warning to-orange-600 text-white px-8 py-12 text-center">
+                    <div class="w-20 h-20 mx-auto mb-4 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 9v2m0 4h.01m-6.94 4h13.88a1.88 1.88 0 001.88-1.88V8.12a1.88 1.88 0 00-1.88-1.88H5.94a1.88 1.88 0 00-1.88 1.88v10.76c0 1.04.84 1.88 1.88 1.88z"/>
+                        </svg>
+                    </div>
+                    <h1 class="text-4xl font-bold">Payment Pending</h1>
+                </div>
+            {% endif %}
+
+            <!-- Message Body -->
+            <div class="px-8 py-10 text-center">
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    {{ message|default:"Thank you for using aamarPay." }}
+                </p>
+
+                {% if tran_id %}
+                <div class="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <p class="text-sm text-gray-600">Transaction ID</p>
+                    <p class="font-mono text-lg font-semibold text-primary">{{ tran_id }}</p>
+                </div>
+                {% endif %}
+
+                {% if amount %}
+                <div class="mt-4 text-3xl font-bold text-gray-800">
+                    ৳{{ amount }} BDT
+                </div>
+                {% endif %}
+
+                <!-- Action Buttons -->
+                <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="/payments/" 
+                       class="inline-flex items-center justify-center px-8 py-4 bg-primary hover:bg-primary-dark text-white font-semibold rounded-xl shadow-lg transition transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h10m-9 4h8a2 2 0 002-2V7a2 2 0 00-2-2H8a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                        Make Another Payment
+                    </a>
+
+                    <a href="/" 
+                       class="inline-flex items-center justify-center px-8 py-4 border-2 border-gray-300 text-gray-700 font-semibold rounded-xl hover:bg-gray-50 transition">
+                        Back to Home
+                    </a>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="bg-gray-50 px-8 py-6 text-center border-t border-gray-200">
+                <p class="text-xs text-gray-500">
+                    Secured by <span class="font-bold text-primary">aamarPay</span> • SSL Encrypted • PCI DSS Compliant
+                </p>
+            </div>
+        </div>
+
+        <!-- Powered By -->
+        <p class="text-center text-gray-500 text-xs mt-8">
+            Powered by <span class="font-semibold text-primary">aamarPay</span> — Trusted by thousands in Bangladesh
+        </p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>aamarPay - Secure Payment</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Optional: Tailwind Config for custom colors -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0052CC',
+                        'primary-dark': '#003380',
+                        success: '#00C853',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center px-4 py-12">
+    
+    <div class="w-full max-w-md">
+        <!-- Card Container -->
+        <div class="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+            
+            <!-- Header with aamarPay Branding -->
+            <div class="bg-gradient-to-r from-primary to-primary-dark text-white px-8 py-10 text-center">
+                <h1 class="text-3xl font-bold tracking-tight">aamarPay</h1>
+                <p class="text-blue-100 mt-2 text-sm">Secure Online Payment Gateway</p>
+            </div>
+
+            <!-- Main Content -->
+            <div class="px-8 py-10">
+                <div class="text-center mb-8">
+                    <div class="inline-flex items-center justify-center w-20 h-20 bg-green-100 rounded-full mb-4">
+                        <svg class="w-10 h-10 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl font-semibold text-gray-800">Complete Your Payment</h2>
+                    <p class="text-gray-600 mt-2">You're about to pay</p>
+                    <div class="mt-4">
+                        <span class="text-4xl font-bold text-primary">৳100</span>
+                        <span class="text-gray-500 text-lg ml-1">BDT</span>
+                    </div>
+                </div>
+
+                <!-- Error Message -->
+                {% if error %}
+                    <div class="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg text-sm">
+                        <strong>Error:</strong> {{ error }}
+                    </div>
+                {% endif %}
+
+                <!-- Payment Button -->
+                <form method="post" class="mt-8">
+                    {% csrf_token %}
+                    <button type="submit" 
+                            class="w-full bg-gradient-to-r from-primary to-primary-dark hover:from-primary-dark hover:to-blue-900 text-white font-bold py-4 px-6 rounded-xl shadow-lg transform transition duration-200 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300 text-lg">
+                        <span class="flex items-center justify-center">
+                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h10m-9 4h8a2 2 0 002-2V7a2 2 0 00-2-2H8a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                            Pay ৳100 Now - Secure Checkout
+                        </span>
+                    </button>
+                </form>
+
+                <!-- Trust Badges -->
+                <div class="mt-8 pt-8 border-t border-gray-200 text-center">
+                    <p class="text-xs text-gray-500">Your payment is secured with 256-bit SSL encryption</p>
+                    <div class="flex justify-center space-x-4 mt-4">
+                        <img src="https://www.aamarpay.com/images/logo.png" alt="aamarPay" class="h-8 opacity-70">
+                        <div class="flex items-center space-x-2">
+                            <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="text-xs text-gray-500">SSL Secured</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <p class="text-center text-gray-500 text-xs mt-8">
+            Powered by <span class="font-semibold text-primary">aamarPay</span> - Bangladesh's Leading Payment Gateway
+        </p>
+    </div>
+</body>
+</html>
